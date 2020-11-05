@@ -73,12 +73,6 @@
         "properties": {
           "kubernetesVersion": "[parameters('k8sVersion')]",
           "dnsPrefix": "[concat(variables('k8sClusterName'), '-dns')]",
-          "aadProfile": {
-            "clientAppID": "[parameters('aadClientAppClientId')]",
-            "serverAppID": "[parameters('aadServerAppClientId')]",
-            "tenantID": "[parameters('aadTenantId')]",
-            "serverAppSecret": "[parameters('aadServerAppSecret')]"
-          },
           "agentPoolProfiles": [
             {
               "name": "agentpool",
