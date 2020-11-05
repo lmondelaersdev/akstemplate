@@ -97,11 +97,8 @@
             }
           },
           "enableRBAC": true,
-          "apiServerAuthorizedIPRanges": [
-            "Authorized ranges here…"
-          ],
           "networkProfile": {
-            "networkPlugin": "azure",
+            "networkPlugin": "kubenet",
             "loadBalancerSku": "standard",
             "loadBalancerProfile": {
               "managedOutboundIPs": {
