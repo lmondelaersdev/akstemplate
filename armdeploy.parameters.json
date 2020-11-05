@@ -5,18 +5,6 @@
         "k8sVersion": {
             "value": "1.17.13"
         },
-        "aadClientAppClientId": {
-            "value": "tbd" 
-        },
-        "aadServerAppClientId": {
-            "value": "" 
-        },
-        "aadServerAppSecret": {
-            "value": "" 
-        },
-        "aadTenantId": {
-            "value": "36da45f1-dd2c-4d1f-af13-5abe46b99921"
-        },
         "k8sServicePrincipleClientId": {
             "value": "" 
         },

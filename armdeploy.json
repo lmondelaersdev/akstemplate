@@ -9,20 +9,7 @@
         "metadata": {
           "description": "The version of Kubernetes"
         }
-      },
-      "aadClientAppClientId": {
-        "type": "string"
-      },
-      "aadServerAppClientId": {
-        "type": "string"
-      },
-      "aadServerAppSecret": {
-        "type": "securestring"
-      },
-      "aadTenantId": {
-        "type": "string"
-      },
-      "k8sServicePrincipleClientId": {
+      },      "k8sServicePrincipleClientId": {
         "type": "string"
       },
       "k8sServicePrincipleSecret": {
@@ -73,12 +60,6 @@
         "properties": {
           "kubernetesVersion": "[parameters('k8sVersion')]",
           "dnsPrefix": "[concat(variables('k8sClusterName'), '-dns')]",
-          "aadProfile": {
-            "clientAppID": "[parameters('aadClientAppClientId')]",
-            "serverAppID": "[parameters('aadServerAppClientId')]",
-            "tenantID": "[parameters('aadTenantId')]",
-            "serverAppSecret": "[parameters('aadServerAppSecret')]"
-          },
           "agentPoolProfiles": [
             {
               "name": "agentpool",
