@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "k8sVersion": {
+            "value": "1.15.7"
+        },
+        "aadClientAppClientId": {
+            "value": "tbd" 
+        },
+        "aadServerAppClientId": {
+            "value": "" 
+        },
+        "aadServerAppSecret": {
+            "value": "" 
+        },
+        "aadTenantId": {
+            "value": "36da45f1-dd2c-4d1f-af13-5abe46b99921"
+        },
+        "k8sServicePrincipleClientId": {
+            "value": "" 
+        },
+        "k8sServicePrincipleSecret": {
+            "value": ""
+        },
+        "k8sMinAgentCount": {
+            "value": 3
+        },
+        "k8sMaxAgentCount": {
+            "value": 10
+        },
+        "k8sAgentVMSize": {
+            "value": "Standard_DS2_v2"
+        },
+        "logAnalyticsWorkspaceId": {
+            "value": "" 
+        }
+    }
+}

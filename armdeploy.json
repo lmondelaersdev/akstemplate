@@ -1,0 +1,140 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      
+      "k8sVersion": {
+        "type": "string",
+        "defaultValue": "1.15.7",
+        "metadata": {
+          "description": "The version of Kubernetes"
+        }
+      },
+      "aadClientAppClientId": {
+        "type": "string"
+      },
+      "aadServerAppClientId": {
+        "type": "string"
+      },
+      "aadServerAppSecret": {
+        "type": "securestring"
+      },
+      "aadTenantId": {
+        "type": "string"
+      },
+      "k8sServicePrincipleClientId": {
+        "type": "string"
+      },
+      "k8sServicePrincipleSecret": {
+        "type": "securestring"
+      },
+      "k8sMinAgentCount": {
+        "type": "int",
+        "defaultValue": 3,
+        "metadata": {
+          "description": "The minimum number of agent nodes for the Kubernetes cluster."
+        }
+      },
+      "k8sMaxAgentCount": {
+        "type": "int",
+        "defaultValue": 10,
+        "metadata": {
+          "description": "The maximum number of agent nodes for the Kubernetes cluster."
+        }
+      },
+      "k8sAgentVMSize": {
+        "type": "string",
+        "defaultValue": "Standard_DS2_v2",
+        "metadata": {
+          "description": "The size of the Virtual Machine for the Kubernetes agent nodes."
+        }
+      },
+      "logAnalyticsWorkspaceId": {
+        "type": "string",
+        "metadata": {
+          "description": "Log analytics workspace Id"
+        }
+      }
+    },
+    "variables": {
+      "vNetEnvironment": "NONPROD",
+      "vNetResourceGroup": "RG-DELO003-QA",
+      "vNetName": "VN-DELO003-QA",
+      "vNetBackendSubnetName": "PrivateLinkSubnet",
+      "vNetBackendSubnetId": "[resourceId(variables('vNetResourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', variables('vNetName'), variables('vNetBackendSubnetName'))]",
+      "k8sClusterName": "[concat('dak8s-acc-aks')]"
+    },
+    "resources": [
+      {
+        "type": "Microsoft.ContainerService/managedClusters",
+        "apiVersion": "2019-06-01",
+        "name": "[variables('k8sClusterName')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+          "kubernetesVersion": "[parameters('k8sVersion')]",
+          "dnsPrefix": "[concat(variables('k8sClusterName'), '-dns')]",
+          "aadProfile": {
+            "clientAppID": "[parameters('aadClientAppClientId')]",
+            "serverAppID": "[parameters('aadServerAppClientId')]",
+            "tenantID": "[parameters('aadTenantId')]",
+            "serverAppSecret": "[parameters('aadServerAppSecret')]"
+          },
+          "agentPoolProfiles": [
+            {
+              "name": "agentpool",
+              "count": "[parameters('k8sMinAgentCount')]",
+              "vmSize": "[parameters('k8sAgentVMSize')]",
+              "osDiskSizeGB": 100,
+              "vnetSubnetID": "[variables('vNetBackendSubnetId')]",
+              "maxPods": 110,
+              "osType": "Linux",
+              "type": "VirtualMachineScaleSets",
+              "enableAutoScaling": true,
+              "minCount": "[parameters('k8sMinAgentCount')]",
+              "maxCount": "[parameters('k8sMaxAgentCount')]",
+              "availabilityZones": [
+                "1",
+                "2",
+                "3"
+              ]
+            }
+          ],
+          "servicePrincipalProfile": {
+            "clientId": "[parameters('k8sServicePrincipleClientId')]",
+            "secret": "[parameters('k8sServicePrincipleSecret')]"
+          },
+          "addonProfiles": {
+            "httpApplicationRouting": {
+              "enabled": false,
+              "config": {}
+            },
+            "omsagent": {
+              "enabled": true,
+              "config": {
+                "loganalyticsworkspaceresourceid": "[parameters('logAnalyticsWorkspaceId')]"
+              }
+            }
+          },
+          "enableRBAC": true,
+          "apiServerAuthorizedIPRanges": [
+            "Authorized ranges here…"
+          ],
+          "networkProfile": {
+            "networkPlugin": "kubenet",
+            "networkPolicy": "calico",
+            "loadBalancerSku": "standard",
+            "loadBalancerProfile": {
+              "managedOutboundIPs": {
+                "count": 1
+              }
+            },
+            "podCidr": "100.101.0.0/16",
+            "serviceCidr": "100.100.0.0/16",
+            "dnsServiceIP": "100.100.0.10",
+            "dockerBridgeCidr": "172.17.0.1/16"
+          }
+        }
+      }
+    ]
+  }
+  
