@@ -93,7 +93,7 @@
               "enabled": true,
               "config": {
                 "loganalyticsworkspaceresourceid": "[parameters('logAnalyticsWorkspaceId')]"
-              }
+              } 
             }
           },
           "enableRBAC": true,
