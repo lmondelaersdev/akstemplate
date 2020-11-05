@@ -78,14 +78,14 @@
                 "2",
                 "3"
               ]
-            }
+            } 
           ],
           "servicePrincipalProfile": {
             "clientId": "[parameters('k8sServicePrincipleClientId')]",
             "secret": "[parameters('k8sServicePrincipleSecret')]"
           },
           "addonProfiles": {
-            "httpApplicationRouting": {
+            "httpApplicationRouting": { 
               "enabled": false,
               "config": {}
             },
