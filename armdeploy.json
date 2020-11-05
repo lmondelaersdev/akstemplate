@@ -110,7 +110,7 @@
               }
             },
             "podCidr": "10.3.0.0/16",
-            "serviceCidr": "10.2.0.0/16",
+            "serviceCidr": "10.2.0.0/24",
             "dnsServiceIP": "10.2.0.10",
             "dockerBridgeCidr": "172.17.0.1/16"
           }
