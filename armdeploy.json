@@ -101,8 +101,7 @@
             "Authorized ranges here…"
           ],
           "networkProfile": {
-            "networkPlugin": "kubenet",
-            "networkPolicy": "calico",
+            "networkPlugin": "azure",
             "loadBalancerSku": "standard",
             "loadBalancerProfile": {
               "managedOutboundIPs": {
