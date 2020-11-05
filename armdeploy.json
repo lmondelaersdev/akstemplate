@@ -5,7 +5,7 @@
       
       "k8sVersion": {
         "type": "string",
-        "defaultValue": "1.17.13",
+        "defaultValue": "1.15.7",
         "metadata": {
           "description": "The version of Kubernetes"
         }
@@ -73,6 +73,12 @@
         "properties": {
           "kubernetesVersion": "[parameters('k8sVersion')]",
           "dnsPrefix": "[concat(variables('k8sClusterName'), '-dns')]",
+          "aadProfile": {
+            "clientAppID": "[parameters('aadClientAppClientId')]",
+            "serverAppID": "[parameters('aadServerAppClientId')]",
+            "tenantID": "[parameters('aadTenantId')]",
+            "serverAppSecret": "[parameters('aadServerAppSecret')]"
+          },
           "agentPoolProfiles": [
             {
               "name": "agentpool",
@@ -122,9 +128,9 @@
                 "count": 1
               }
             },
-            "podCidr": "100.101.0.0/16",
-            "serviceCidr": "100.100.0.0/16",
-            "dnsServiceIP": "100.100.0.10",
+            "podCidr": "10.3.0.0/16",
+            "serviceCidr": "10.2.0.0/16",
+            "dnsServiceIP": "10.2.0.10",
             "dockerBridgeCidr": "172.17.0.1/16"
           }
         }
