@@ -5,7 +5,7 @@
       
       "k8sVersion": {
         "type": "string",
-        "defaultValue": "1.15.7",
+        "defaultValue": "1.17.13",
         "metadata": {
           "description": "The version of Kubernetes"
         }
